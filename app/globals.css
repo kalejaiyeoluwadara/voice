@@ -1,51 +1,57 @@
 @import "tailwindcss";
 
 /* ============================================
-   VoiceFlow — Design System
+   Audrey — Love-Themed Design System
    ============================================ */
 
 :root {
-  /* Core palette */
-  --vf-bg-primary: #0a0a0f;
-  --vf-bg-secondary: #12121a;
-  --vf-bg-card: rgba(18, 18, 30, 0.6);
-  --vf-bg-card-hover: rgba(24, 24, 40, 0.8);
+  /* Background palette — deep romantic purples */
+  --au-bg-primary: #0d0a14;
+  --au-bg-secondary: #150f20;
+  --au-bg-card: rgba(30, 15, 45, 0.5);
+  --au-bg-card-hover: rgba(40, 20, 55, 0.6);
 
   /* Glass */
-  --vf-glass-bg: rgba(255, 255, 255, 0.03);
-  --vf-glass-border: rgba(255, 255, 255, 0.06);
-  --vf-glass-border-hover: rgba(255, 255, 255, 0.12);
+  --au-glass-bg: rgba(255, 255, 255, 0.03);
+  --au-glass-border: rgba(255, 255, 255, 0.06);
+  --au-glass-border-hover: rgba(255, 255, 255, 0.1);
 
-  /* Accent — Cyan/Teal */
-  --vf-accent: #06d6a0;
-  --vf-accent-light: #3dffc0;
-  --vf-accent-glow: rgba(6, 214, 160, 0.15);
-  --vf-accent-glow-strong: rgba(6, 214, 160, 0.3);
+  /* Audrey's accent — Warm Rose Pink */
+  --au-rose: #f472b6;
+  --au-rose-light: #fb7ec8;
+  --au-rose-glow: rgba(244, 114, 182, 0.15);
+  --au-rose-glow-strong: rgba(244, 114, 182, 0.3);
+  --au-rose-subtle: rgba(244, 114, 182, 0.06);
 
-  /* Secondary accent — Violet */
-  --vf-violet: #8b5cf6;
-  --vf-violet-light: #a78bfa;
-  --vf-violet-glow: rgba(139, 92, 246, 0.15);
+  /* User accent — Soft Violet */
+  --au-violet: #a78bfa;
+  --au-violet-light: #c4b5fd;
+  --au-violet-glow: rgba(167, 139, 250, 0.15);
+  --au-violet-subtle: rgba(167, 139, 250, 0.06);
+
+  /* Warm amber for highlights */
+  --au-amber: #fbbf24;
+  --au-amber-glow: rgba(251, 191, 36, 0.15);
 
   /* Text */
-  --vf-text-primary: #f0f0f5;
-  --vf-text-secondary: #8888a0;
-  --vf-text-muted: #555570;
+  --au-text-primary: #f5f0f8;
+  --au-text-secondary: #a094b0;
+  --au-text-muted: #6b5f7a;
 
   /* Gradients */
-  --vf-gradient-accent: linear-gradient(135deg, #06d6a0, #3b82f6, #8b5cf6);
-  --vf-gradient-warm: linear-gradient(135deg, #f59e0b, #ef4444);
-  --vf-gradient-cool: linear-gradient(135deg, #06b6d4, #8b5cf6);
-  --vf-gradient-surface: linear-gradient(180deg, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0) 100%);
+  --au-gradient-love: linear-gradient(135deg, #f472b6, #c084fc, #818cf8);
+  --au-gradient-warm: linear-gradient(135deg, #fb7185, #f472b6);
+  --au-gradient-user: linear-gradient(135deg, #a78bfa, #818cf8);
 
   /* Spacing */
-  --vf-radius: 16px;
-  --vf-radius-sm: 10px;
-  --vf-radius-lg: 24px;
+  --au-radius: 20px;
+  --au-radius-sm: 12px;
+  --au-radius-lg: 28px;
+  --au-radius-bubble: 20px;
 }
 
 /* ============================================
-   Base Styles
+   Base
    ============================================ */
 
 html {
@@ -53,20 +59,21 @@ html {
 }
 
 body {
-  background: var(--vf-bg-primary);
-  color: var(--vf-text-primary);
+  background: var(--au-bg-primary);
+  color: var(--au-text-primary);
   min-height: 100vh;
+  overflow: hidden;
 }
 
-/* Ambient background gradient */
+/* Ambient love gradient — soft blobs */
 body::before {
   content: '';
   position: fixed;
   inset: 0;
   background:
-    radial-gradient(ellipse 80% 50% at 50% -20%, rgba(6, 214, 160, 0.08), transparent),
-    radial-gradient(ellipse 60% 40% at 80% 80%, rgba(139, 92, 246, 0.06), transparent),
-    radial-gradient(ellipse 50% 30% at 10% 60%, rgba(59, 130, 246, 0.04), transparent);
+    radial-gradient(ellipse 70% 50% at 20% 20%, rgba(244, 114, 182, 0.06), transparent),
+    radial-gradient(ellipse 60% 40% at 80% 70%, rgba(167, 139, 250, 0.05), transparent),
+    radial-gradient(ellipse 40% 30% at 50% 90%, rgba(251, 113, 133, 0.04), transparent);
   pointer-events: none;
   z-index: 0;
 }
@@ -76,42 +83,40 @@ body::before {
    ============================================ */
 
 .glass-card {
-  background: var(--vf-glass-bg);
-  border: 1px solid var(--vf-glass-border);
-  border-radius: var(--vf-radius);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
-}
-
-.glass-card:hover {
-  border-color: var(--vf-glass-border-hover);
-}
-
-.glass-card-glow {
-  background: var(--vf-glass-bg);
-  border: 1px solid var(--vf-glass-border);
-  border-radius: var(--vf-radius);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  box-shadow: 0 0 40px -10px var(--vf-accent-glow);
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
-}
-
-.glass-card-glow:hover {
-  border-color: var(--vf-glass-border-hover);
-  box-shadow: 0 0 60px -10px var(--vf-accent-glow-strong);
+  background: var(--au-glass-bg);
+  border: 1px solid var(--au-glass-border);
+  border-radius: var(--au-radius);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  transition: border-color 0.3s ease;
 }
 
 /* ============================================
-   Gradient Text
+   Chat Bubbles
    ============================================ */
 
-.gradient-text {
-  background: var(--vf-gradient-accent);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+.bubble-audrey {
+  background: rgba(244, 114, 182, 0.08);
+  border: 1px solid rgba(244, 114, 182, 0.1);
+  border-radius: var(--au-radius-bubble) var(--au-radius-bubble) var(--au-radius-bubble) 6px;
+  color: var(--au-text-primary);
+  padding: 14px 18px;
+  max-width: 80%;
+  font-size: 0.95rem;
+  line-height: 1.65;
+  animation: bubbleFadeIn 0.4s ease-out forwards;
+}
+
+.bubble-user {
+  background: rgba(167, 139, 250, 0.1);
+  border: 1px solid rgba(167, 139, 250, 0.12);
+  border-radius: var(--au-radius-bubble) var(--au-radius-bubble) 6px var(--au-radius-bubble);
+  color: var(--au-text-primary);
+  padding: 14px 18px;
+  max-width: 80%;
+  font-size: 0.95rem;
+  line-height: 1.65;
+  animation: bubbleFadeIn 0.3s ease-out forwards;
 }
 
 /* ============================================
@@ -119,8 +124,7 @@ body::before {
    ============================================ */
 
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 4px;
 }
 
 ::-webkit-scrollbar-track {
@@ -128,294 +132,130 @@ body::before {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--vf-text-muted);
-  border-radius: 3px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: var(--vf-text-secondary);
-}
-
-/* ============================================
-   Textarea
-   ============================================ */
-
-.vf-textarea {
-  background: rgba(0, 0, 0, 0.3);
-  border: 1px solid var(--vf-glass-border);
-  border-radius: var(--vf-radius-sm);
-  color: var(--vf-text-primary);
-  font-size: 1rem;
-  line-height: 1.7;
-  resize: none;
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
-  outline: none;
-  width: 100%;
-  padding: 16px 20px;
-  font-family: inherit;
-}
-
-.vf-textarea::placeholder {
-  color: var(--vf-text-muted);
-}
-
-.vf-textarea:focus {
-  border-color: rgba(6, 214, 160, 0.3);
-  box-shadow: 0 0 0 3px rgba(6, 214, 160, 0.08), 0 0 30px -5px rgba(6, 214, 160, 0.1);
-}
-
-/* ============================================
-   Slider
-   ============================================ */
-
-.vf-slider {
-  -webkit-appearance: none;
-  appearance: none;
-  width: 100%;
-  height: 4px;
+  background: rgba(167, 139, 250, 0.15);
   border-radius: 2px;
-  background: rgba(255, 255, 255, 0.08);
-  outline: none;
-  transition: background 0.2s ease;
-}
-
-.vf-slider::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  appearance: none;
-  width: 18px;
-  height: 18px;
-  border-radius: 50%;
-  background: var(--vf-accent);
-  cursor: pointer;
-  border: 2px solid var(--vf-bg-primary);
-  box-shadow: 0 0 10px rgba(6, 214, 160, 0.3);
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
-}
-
-.vf-slider::-webkit-slider-thumb:hover {
-  transform: scale(1.2);
-  box-shadow: 0 0 16px rgba(6, 214, 160, 0.5);
-}
-
-.vf-slider::-moz-range-thumb {
-  width: 18px;
-  height: 18px;
-  border-radius: 50%;
-  background: var(--vf-accent);
-  cursor: pointer;
-  border: 2px solid var(--vf-bg-primary);
-  box-shadow: 0 0 10px rgba(6, 214, 160, 0.3);
 }
 
 /* ============================================
-   Buttons
+   Mic Button
    ============================================ */
 
-.vf-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  padding: 10px 20px;
-  border-radius: var(--vf-radius-sm);
-  font-weight: 500;
-  font-size: 0.875rem;
-  border: 1px solid var(--vf-glass-border);
-  background: var(--vf-glass-bg);
-  color: var(--vf-text-primary);
-  cursor: pointer;
-  transition: all 0.2s ease;
-  backdrop-filter: blur(10px);
-}
-
-.vf-btn:hover {
-  border-color: var(--vf-glass-border-hover);
-  background: rgba(255, 255, 255, 0.06);
-}
-
-.vf-btn:active {
-  transform: scale(0.97);
-}
-
-.vf-btn-accent {
-  background: var(--vf-accent);
-  color: #0a0a0f;
-  border-color: transparent;
-  font-weight: 600;
-}
-
-.vf-btn-accent:hover {
-  background: var(--vf-accent-light);
-  border-color: transparent;
-  box-shadow: 0 0 20px rgba(6, 214, 160, 0.3);
-}
-
-.vf-btn-accent:disabled {
-  opacity: 0.4;
-  cursor: not-allowed;
-  box-shadow: none;
-}
-
-/* ============================================
-   Animations
-   ============================================ */
-
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes pulse-ring {
-  0% {
-    transform: scale(1);
-    opacity: 0.4;
-  }
-  100% {
-    transform: scale(1.5);
-    opacity: 0;
-  }
-}
-
-@keyframes shimmer {
-  0% {
-    background-position: -200% 0;
-  }
-  100% {
-    background-position: 200% 0;
-  }
-}
-
-@keyframes spin-slow {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@keyframes waveform-idle {
-  0%, 100% {
-    transform: scaleY(0.3);
-  }
-  50% {
-    transform: scaleY(0.6);
-  }
-}
-
-.animate-fade-in-up {
-  animation: fadeInUp 0.6s ease-out forwards;
-}
-
-.animate-fade-in-up-delay-1 {
-  animation: fadeInUp 0.6s ease-out 0.1s forwards;
-  opacity: 0;
-}
-
-.animate-fade-in-up-delay-2 {
-  animation: fadeInUp 0.6s ease-out 0.2s forwards;
-  opacity: 0;
-}
-
-.animate-fade-in-up-delay-3 {
-  animation: fadeInUp 0.6s ease-out 0.3s forwards;
-  opacity: 0;
-}
-
-.animate-pulse-ring {
-  animation: pulse-ring 1.5s ease-out infinite;
-}
-
-.animate-shimmer {
-  background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.05) 50%, transparent 100%);
-  background-size: 200% 100%;
-  animation: shimmer 2s ease-in-out infinite;
-}
-
-.animate-spin-slow {
-  animation: spin-slow 2s linear infinite;
-}
-
-/* ============================================
-   Play Button
-   ============================================ */
-
-.play-btn {
+.mic-btn {
   position: relative;
-  width: 80px;
-  height: 80px;
+  width: 72px;
+  height: 72px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--vf-accent);
-  color: #0a0a0f;
   border: none;
   cursor: pointer;
   transition: all 0.3s ease;
   z-index: 1;
+  background: var(--au-gradient-warm);
+  color: white;
+  box-shadow: 0 0 30px rgba(244, 114, 182, 0.2);
 }
 
-.play-btn:hover {
+.mic-btn:hover {
   transform: scale(1.05);
-  box-shadow: 0 0 30px rgba(6, 214, 160, 0.4);
+  box-shadow: 0 0 40px rgba(244, 114, 182, 0.35);
 }
 
-.play-btn:active {
+.mic-btn:active {
   transform: scale(0.95);
 }
 
-.play-btn:disabled {
-  opacity: 0.3;
-  cursor: not-allowed;
-  transform: none;
-  box-shadow: none;
+.mic-btn.listening {
+  animation: micPulse 1.5s ease-in-out infinite;
 }
 
-.play-btn-ring {
+.mic-btn-ring {
   position: absolute;
-  inset: -6px;
+  inset: -8px;
   border-radius: 50%;
-  border: 2px solid var(--vf-accent);
+  border: 2px solid var(--au-rose);
   opacity: 0;
 }
 
-.play-btn-ring.active {
-  animation: pulse-ring 1.5s ease-out infinite;
+.mic-btn-ring.active {
+  animation: pulseRing 1.5s ease-out infinite;
+}
+
+.mic-btn-ring-2 {
+  position: absolute;
+  inset: -16px;
+  border-radius: 50%;
+  border: 1px solid var(--au-rose);
+  opacity: 0;
+}
+
+.mic-btn-ring-2.active {
+  animation: pulseRing 1.5s ease-out 0.3s infinite;
 }
 
 /* ============================================
-   Voice Card
+   Text Input
    ============================================ */
 
-.voice-card {
-  padding: 12px 16px;
-  border-radius: var(--vf-radius-sm);
-  border: 1px solid transparent;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  background: transparent;
+.chat-input {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--au-glass-border);
+  border-radius: 100px;
+  color: var(--au-text-primary);
+  font-size: 0.9rem;
+  padding: 12px 20px;
+  padding-right: 48px;
+  outline: none;
+  width: 100%;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  font-family: inherit;
 }
 
-.voice-card:hover {
-  background: rgba(255, 255, 255, 0.03);
-  border-color: var(--vf-glass-border);
+.chat-input::placeholder {
+  color: var(--au-text-muted);
 }
 
-.voice-card.selected {
-  background: rgba(6, 214, 160, 0.06);
-  border-color: rgba(6, 214, 160, 0.2);
-  box-shadow: 0 0 20px -5px rgba(6, 214, 160, 0.15);
+.chat-input:focus {
+  border-color: rgba(244, 114, 182, 0.25);
+  box-shadow: 0 0 0 3px rgba(244, 114, 182, 0.06);
 }
 
 /* ============================================
-   Visualizer Bars
+   Send Button
+   ============================================ */
+
+.send-btn {
+  position: absolute;
+  right: 6px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: none;
+  background: var(--au-rose);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.send-btn:hover {
+  background: var(--au-rose-light);
+  box-shadow: 0 0 12px rgba(244, 114, 182, 0.3);
+}
+
+.send-btn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+/* ============================================
+   Visualizer Bars — Rose Theme
    ============================================ */
 
 .viz-bar {
@@ -423,148 +263,154 @@ body::before {
   border-radius: 2px;
   transform-origin: bottom;
   transition: height 0.05s ease;
-  background: var(--vf-gradient-cool);
 }
 
 .viz-bar-idle {
-  animation: waveform-idle 1.5s ease-in-out infinite;
+  animation: waveformIdle 1.5s ease-in-out infinite;
 }
 
 /* ============================================
-   Progress Bar
+   Typing indicator
    ============================================ */
 
-.progress-track {
-  width: 100%;
-  height: 4px;
-  border-radius: 2px;
-  background: rgba(255, 255, 255, 0.06);
-  cursor: pointer;
-  position: relative;
-  overflow: hidden;
-}
-
-.progress-fill {
-  height: 100%;
-  border-radius: 2px;
-  background: var(--vf-gradient-accent);
-  transition: width 0.1s linear;
-  position: relative;
-}
-
-.progress-fill::after {
-  content: '';
-  position: absolute;
-  right: 0;
-  top: -3px;
-  width: 10px;
-  height: 10px;
+.typing-dot {
+  width: 8px;
+  height: 8px;
   border-radius: 50%;
-  background: var(--vf-accent);
-  box-shadow: 0 0 8px rgba(6, 214, 160, 0.4);
-  opacity: 0;
-  transition: opacity 0.2s;
+  background: var(--au-rose);
+  animation: typingBounce 1.4s ease-in-out infinite;
 }
 
-.progress-track:hover .progress-fill::after {
-  opacity: 1;
+.typing-dot:nth-child(2) {
+  animation-delay: 0.2s;
 }
 
-/* ============================================
-   Select/Dropdown
-   ============================================ */
-
-.vf-select {
-  background: rgba(0, 0, 0, 0.3);
-  border: 1px solid var(--vf-glass-border);
-  border-radius: var(--vf-radius-sm);
-  color: var(--vf-text-primary);
-  font-size: 0.875rem;
-  padding: 10px 14px;
-  outline: none;
-  cursor: pointer;
-  transition: border-color 0.3s ease;
-  width: 100%;
-  appearance: none;
-  -webkit-appearance: none;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%238888a0' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: right 14px center;
-  padding-right: 36px;
-}
-
-.vf-select:focus {
-  border-color: rgba(6, 214, 160, 0.3);
-}
-
-.vf-select option {
-  background: #12121a;
-  color: var(--vf-text-primary);
+.typing-dot:nth-child(3) {
+  animation-delay: 0.4s;
 }
 
 /* ============================================
-   Badge
+   Status Badge
    ============================================ */
 
-.vf-badge {
-  display: inline-flex;
-  align-items: center;
-  padding: 2px 8px;
-  border-radius: 100px;
-  font-size: 0.7rem;
-  font-weight: 500;
-  letter-spacing: 0.02em;
-  background: rgba(255, 255, 255, 0.05);
-  color: var(--vf-text-secondary);
-  border: 1px solid rgba(255, 255, 255, 0.06);
-}
-
-.vf-badge-accent {
-  background: rgba(6, 214, 160, 0.1);
-  color: var(--vf-accent);
-  border-color: rgba(6, 214, 160, 0.15);
-}
-
-/* ============================================
-   Tooltip
-   ============================================ */
-
-.vf-tooltip {
-  position: relative;
-}
-
-.vf-tooltip::after {
-  content: attr(data-tooltip);
-  position: absolute;
-  bottom: calc(100% + 8px);
-  left: 50%;
-  transform: translateX(-50%);
-  padding: 6px 12px;
-  border-radius: 8px;
-  background: rgba(18, 18, 30, 0.95);
-  border: 1px solid var(--vf-glass-border);
-  color: var(--vf-text-secondary);
-  font-size: 0.75rem;
-  white-space: nowrap;
-  pointer-events: none;
-  opacity: 0;
-  transition: opacity 0.2s;
-  z-index: 10;
-}
-
-.vf-tooltip:hover::after {
-  opacity: 1;
-}
-
-/* ============================================
-   Loading Spinner
-   ============================================ */
-
-.vf-spinner {
-  width: 24px;
-  height: 24px;
-  border: 2px solid rgba(255, 255, 255, 0.1);
-  border-top-color: var(--vf-accent);
+.status-dot {
+  width: 8px;
+  height: 8px;
   border-radius: 50%;
-  animation: spin-slow 0.8s linear infinite;
+  background: #34d399;
+  box-shadow: 0 0 8px rgba(52, 211, 153, 0.4);
+  animation: statusPulse 2s ease-in-out infinite;
+}
+
+/* ============================================
+   Spinner
+   ============================================ */
+
+.au-spinner {
+  width: 20px;
+  height: 20px;
+  border: 2px solid rgba(244, 114, 182, 0.15);
+  border-top-color: var(--au-rose);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+/* ============================================
+   Animations
+   ============================================ */
+
+@keyframes bubbleFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes pulseRing {
+  0% {
+    transform: scale(1);
+    opacity: 0.4;
+  }
+  100% {
+    transform: scale(1.6);
+    opacity: 0;
+  }
+}
+
+@keyframes micPulse {
+  0%, 100% {
+    box-shadow: 0 0 30px rgba(244, 114, 182, 0.25);
+  }
+  50% {
+    box-shadow: 0 0 50px rgba(244, 114, 182, 0.45);
+  }
+}
+
+@keyframes typingBounce {
+  0%, 60%, 100% {
+    transform: translateY(0);
+    opacity: 0.4;
+  }
+  30% {
+    transform: translateY(-6px);
+    opacity: 1;
+  }
+}
+
+@keyframes waveformIdle {
+  0%, 100% {
+    transform: scaleY(0.2);
+  }
+  50% {
+    transform: scaleY(0.5);
+  }
+}
+
+@keyframes statusPulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes floatHeart {
+  0% {
+    transform: translateY(0) scale(1);
+    opacity: 0.6;
+  }
+  100% {
+    transform: translateY(-60px) scale(0.5);
+    opacity: 0;
+  }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.5s ease-out forwards;
+}
+
+.animate-fade-in-up-delay {
+  animation: fadeInUp 0.5s ease-out 0.15s forwards;
+  opacity: 0;
 }

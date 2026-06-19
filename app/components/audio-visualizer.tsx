@@ -4,16 +4,14 @@ import { useRef, useEffect, useCallback } from "react";
 
 interface AudioVisualizerProps {
   getAnalyserNode: () => AnalyserNode | null;
-  isPlaying: boolean;
-  isPaused: boolean;
+  isActive: boolean;
 }
 
-const BAR_COUNT = 48;
+const BAR_COUNT = 32;
 
 export default function AudioVisualizer({
   getAnalyserNode,
-  isPlaying,
-  isPaused,
+  isActive,
 }: AudioVisualizerProps) {
   const barsRef = useRef<(HTMLDivElement | null)[]>([]);
   const rafRef = useRef<number | null>(null);
@@ -21,21 +19,19 @@ export default function AudioVisualizer({
   const animate = useCallback(() => {
     const analyser = getAnalyserNode();
 
-    if (analyser && isPlaying && !isPaused) {
+    if (analyser && isActive) {
       const dataArray = new Uint8Array(analyser.frequencyBinCount);
       analyser.getByteFrequencyData(dataArray);
 
-      // Map frequency data to bars
       const step = Math.floor(dataArray.length / BAR_COUNT);
       for (let i = 0; i < BAR_COUNT; i++) {
         const bar = barsRef.current[i];
         if (!bar) continue;
 
-        // Sample from the frequency data
         const index = Math.min(i * step, dataArray.length - 1);
         const value = dataArray[index];
         const normalizedHeight = (value / 255) * 100;
-        const height = Math.max(4, normalizedHeight);
+        const height = Math.max(6, normalizedHeight);
 
         bar.style.height = `${height}%`;
         bar.style.opacity = `${0.4 + (normalizedHeight / 100) * 0.6}`;
@@ -43,10 +39,10 @@ export default function AudioVisualizer({
     }
 
     rafRef.current = requestAnimationFrame(animate);
-  }, [getAnalyserNode, isPlaying, isPaused]);
+  }, [getAnalyserNode, isActive]);
 
   useEffect(() => {
-    if (isPlaying && !isPaused) {
+    if (isActive) {
       rafRef.current = requestAnimationFrame(animate);
     }
 
@@ -55,11 +51,11 @@ export default function AudioVisualizer({
         cancelAnimationFrame(rafRef.current);
       }
     };
-  }, [isPlaying, isPaused, animate]);
+  }, [isActive, animate]);
 
-  // Reset bars when not playing
+  // Reset bars when not active
   useEffect(() => {
-    if (!isPlaying) {
+    if (!isActive) {
       barsRef.current.forEach((bar) => {
         if (bar) {
           bar.style.height = "";
@@ -67,16 +63,14 @@ export default function AudioVisualizer({
         }
       });
     }
-  }, [isPlaying]);
+  }, [isActive]);
 
   return (
     <div
-      className="flex items-end justify-center gap-[3px] h-[120px] w-full px-4"
+      className="flex items-end justify-center gap-[3px] h-[40px] w-full"
       id="audio-visualizer"
     >
       {Array.from({ length: BAR_COUNT }).map((_, i) => {
-        const isActive = isPlaying && !isPaused;
-        // Create a wave-like delay for idle animation
         const delay = `${(i / BAR_COUNT) * 1.5}s`;
 
         return (
@@ -87,11 +81,11 @@ export default function AudioVisualizer({
             }}
             className={`viz-bar ${!isActive ? "viz-bar-idle" : ""}`}
             style={{
-              height: isActive ? "4%" : undefined,
+              height: isActive ? "6%" : undefined,
               animationDelay: !isActive ? delay : undefined,
-              background: `linear-gradient(to top, 
-                hsl(${175 + (i / BAR_COUNT) * 90}, 80%, 55%), 
-                hsl(${220 + (i / BAR_COUNT) * 60}, 70%, 65%))`,
+              background: `linear-gradient(to top,
+                hsl(${330 + (i / BAR_COUNT) * 30}, 80%, 65%),
+                hsl(${270 + (i / BAR_COUNT) * 40}, 70%, 70%))`,
             }}
           />
         );
