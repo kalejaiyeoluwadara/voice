@@ -20,22 +20,16 @@ export default function ChatMessages({ messages, isThinking }: ChatMessagesProps
     return (
       <div className="flex-1 flex flex-col items-center justify-center px-6 text-center">
         <div
-          className="text-5xl mb-4"
-          style={{ filter: "drop-shadow(0 0 20px rgba(244, 114, 182, 0.3))" }}
+          className="text-6xl mb-4 animate-bounce"
+          style={{ filter: "drop-shadow(0 0 20px rgba(255, 252, 0, 0.4))" }}
         >
-          💕
+          👻
         </div>
-        <h3
-          className="text-lg font-medium mb-2"
-          style={{ color: "var(--au-text-primary)" }}
-        >
-          Hey there
+        <h3 className="text-lg font-bold mb-2 text-yellow-400 tracking-wide">
+          Snap Audrey
         </h3>
-        <p
-          className="text-sm max-w-xs"
-          style={{ color: "var(--au-text-muted)" }}
-        >
-          Tap the mic or type a message to start talking with Audrey
+        <p className="text-sm max-w-xs" style={{ color: "var(--au-text-secondary)" }}>
+          Audrey is on summer break in Lagos! Say hey to start the conversation.
         </p>
       </div>
     );
@@ -43,52 +37,58 @@ export default function ChatMessages({ messages, isThinking }: ChatMessagesProps
 
   return (
     <div className="flex-1 overflow-y-auto px-4 py-4 space-y-4">
-      {messages.map((msg) => (
-        <div
-          key={msg.id}
-          className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}
-        >
-          {msg.role === "assistant" && (
-            <div className="flex-shrink-0 mr-3 mt-1">
-              <div
-                className="w-8 h-8 rounded-full flex items-center justify-center text-sm"
-                style={{
-                  background: "var(--au-rose-subtle)",
-                  border: "1px solid rgba(244, 114, 182, 0.15)",
-                  color: "var(--au-rose)",
-                }}
+      {messages.map((msg) => {
+        const isUser = msg.role === "user";
+        return (
+          <div key={msg.id} className="flex justify-start max-w-[90%]">
+            {/* Snapchat "Saved in Chat" Style Left Bordered Card */}
+            <div
+              className={`border-l-[3.5px] pl-3.5 py-1.5 pr-4 rounded-r-xl transition-all duration-200 ${
+                isUser
+                  ? "border-sky-400 bg-sky-500/5 hover:bg-sky-500/10"
+                  : "border-rose-400 bg-rose-500/5 hover:bg-rose-500/10"
+              }`}
+              style={{
+                boxShadow: isUser
+                  ? "inset 0 0 10px rgba(56, 189, 248, 0.02)"
+                  : "inset 0 0 10px rgba(251, 113, 133, 0.02)",
+              }}
+            >
+              {/* Sender name badge */}
+              <span
+                className={`text-xs font-black tracking-widest uppercase block mb-0.5 ${
+                  isUser ? "text-sky-400" : "text-rose-400"
+                }`}
               >
-                A
+                {isUser ? "Me" : "Audrey"}
+              </span>
+
+              {/* Message text */}
+              <div
+                className="text-sm leading-relaxed whitespace-pre-wrap break-words"
+                style={{ color: "var(--au-text-primary)" }}
+              >
+                {msg.content}
               </div>
             </div>
-          )}
-
-          <div className={msg.role === "user" ? "bubble-user" : "bubble-audrey"}>
-            {msg.content}
           </div>
-        </div>
-      ))}
+        );
+      })}
 
       {/* Thinking indicator */}
       {isThinking && (
-        <div className="flex justify-start">
-          <div className="flex-shrink-0 mr-3 mt-1">
-            <div
-              className="w-8 h-8 rounded-full flex items-center justify-center text-sm"
-              style={{
-                background: "var(--au-rose-subtle)",
-                border: "1px solid rgba(244, 114, 182, 0.15)",
-                color: "var(--au-rose)",
-              }}
-            >
-              A
-            </div>
-          </div>
-          <div className="bubble-audrey">
-            <div className="flex items-center gap-1.5 py-1 px-1">
-              <div className="typing-dot" />
-              <div className="typing-dot" />
-              <div className="typing-dot" />
+        <div className="flex justify-start max-w-[90%]">
+          <div
+            className="border-l-[3.5px] border-rose-400 bg-rose-500/5 pl-3.5 py-2 pr-5 rounded-r-xl"
+            style={{ boxShadow: "inset 0 0 10px rgba(251, 113, 133, 0.02)" }}
+          >
+            <span className="text-xs font-black tracking-widest uppercase block text-rose-400 mb-1">
+              Audrey
+            </span>
+            <div className="flex items-center gap-1.5 py-1">
+              <div className="typing-dot" style={{ background: "var(--au-rose)" }} />
+              <div className="typing-dot" style={{ background: "var(--au-rose)" }} />
+              <div className="typing-dot" style={{ background: "var(--au-rose)" }} />
             </div>
           </div>
         </div>

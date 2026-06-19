@@ -5,49 +5,49 @@
    ============================================ */
 
 :root {
-  /* Background palette — deep romantic purples */
-  --au-bg-primary: #0d0a14;
-  --au-bg-secondary: #150f20;
-  --au-bg-card: rgba(30, 15, 45, 0.5);
-  --au-bg-card-hover: rgba(40, 20, 55, 0.6);
+  /* Background palette — OLED dark charcoal blacks */
+  --au-bg-primary: #000000;
+  --au-bg-secondary: #0a0a0a;
+  --au-bg-card: rgba(18, 18, 18, 0.6);
+  --au-bg-card-hover: rgba(28, 28, 28, 0.8);
 
   /* Glass */
-  --au-glass-bg: rgba(255, 255, 255, 0.03);
-  --au-glass-border: rgba(255, 255, 255, 0.06);
-  --au-glass-border-hover: rgba(255, 255, 255, 0.1);
+  --au-glass-bg: rgba(255, 255, 255, 0.02);
+  --au-glass-border: rgba(255, 255, 255, 0.05);
+  --au-glass-border-hover: rgba(255, 255, 255, 0.08);
 
-  /* Audrey's accent — Warm Rose Pink */
-  --au-rose: #f472b6;
-  --au-rose-light: #fb7ec8;
-  --au-rose-glow: rgba(244, 114, 182, 0.15);
-  --au-rose-glow-strong: rgba(244, 114, 182, 0.3);
-  --au-rose-subtle: rgba(244, 114, 182, 0.06);
+  /* Audrey's accent — Snapchat Red/Pink for snaps */
+  --au-rose: #ff3b5c;
+  --au-rose-light: #ff5c77;
+  --au-rose-glow: rgba(255, 59, 92, 0.15);
+  --au-rose-glow-strong: rgba(255, 59, 92, 0.3);
+  --au-rose-subtle: rgba(255, 59, 92, 0.06);
 
-  /* User accent — Soft Violet */
-  --au-violet: #a78bfa;
-  --au-violet-light: #c4b5fd;
-  --au-violet-glow: rgba(167, 139, 250, 0.15);
-  --au-violet-subtle: rgba(167, 139, 250, 0.06);
+  /* User accent — Snapchat Blue for chat */
+  --au-violet: #05a8fc;
+  --au-violet-light: #38bdf8;
+  --au-violet-glow: rgba(5, 168, 252, 0.15);
+  --au-violet-subtle: rgba(5, 168, 252, 0.06);
 
-  /* Warm amber for highlights */
-  --au-amber: #fbbf24;
-  --au-amber-glow: rgba(251, 191, 36, 0.15);
+  /* Snapchat Yellow for highlights */
+  --au-amber: #FFFC00;
+  --au-amber-glow: rgba(255, 252, 0, 0.15);
 
   /* Text */
-  --au-text-primary: #f5f0f8;
-  --au-text-secondary: #a094b0;
-  --au-text-muted: #6b5f7a;
+  --au-text-primary: #ffffff;
+  --au-text-secondary: #e4e4e7;
+  --au-text-muted: #71717a;
 
   /* Gradients */
-  --au-gradient-love: linear-gradient(135deg, #f472b6, #c084fc, #818cf8);
-  --au-gradient-warm: linear-gradient(135deg, #fb7185, #f472b6);
-  --au-gradient-user: linear-gradient(135deg, #a78bfa, #818cf8);
+  --au-gradient-love: linear-gradient(135deg, #FFFC00, #ff3b5c, #05a8fc);
+  --au-gradient-warm: linear-gradient(135deg, #FFFC00, #ff3b5c);
+  --au-gradient-user: linear-gradient(135deg, #05a8fc, #0284c7);
 
   /* Spacing */
   --au-radius: 20px;
   --au-radius-sm: 12px;
   --au-radius-lg: 28px;
-  --au-radius-bubble: 20px;
+  --au-radius-bubble: 16px;
 }
 
 /* ============================================
@@ -65,18 +65,19 @@ body {
   overflow: hidden;
 }
 
-/* Ambient love gradient — soft blobs */
+/* Ambient Snapchat gradient — soft yellow/blue/pink blobs */
 body::before {
   content: '';
   position: fixed;
   inset: 0;
   background:
-    radial-gradient(ellipse 70% 50% at 20% 20%, rgba(244, 114, 182, 0.06), transparent),
-    radial-gradient(ellipse 60% 40% at 80% 70%, rgba(167, 139, 250, 0.05), transparent),
-    radial-gradient(ellipse 40% 30% at 50% 90%, rgba(251, 113, 133, 0.04), transparent);
+    radial-gradient(ellipse 70% 50% at 20% 20%, rgba(255, 252, 0, 0.03), transparent),
+    radial-gradient(ellipse 60% 40% at 80% 70%, rgba(5, 168, 252, 0.04), transparent),
+    radial-gradient(ellipse 40% 30% at 50% 90%, rgba(255, 59, 92, 0.03), transparent);
   pointer-events: none;
   z-index: 0;
 }
+
 
 /* ============================================
    Glass Card
@@ -414,3 +415,17 @@ body::before {
   animation: fadeInUp 0.5s ease-out 0.15s forwards;
   opacity: 0;
 }
+
+/* ============================================
+   Autofill Overrides for Autocomplete
+   ============================================ */
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 1000px #18181b inset !important;
+  -webkit-text-fill-color: #ffffff !important;
+  transition: background-color 50000s ease-in-out 0s;
+  caret-color: #ffffff;
+}
+

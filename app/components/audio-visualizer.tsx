@@ -84,8 +84,9 @@ export default function AudioVisualizer({
               height: isActive ? "6%" : undefined,
               animationDelay: !isActive ? delay : undefined,
               background: `linear-gradient(to top,
-                hsl(${330 + (i / BAR_COUNT) * 30}, 80%, 65%),
-                hsl(${270 + (i / BAR_COUNT) * 40}, 70%, 70%))`,
+                hsl(${50 + (i / BAR_COUNT) * 15}, 100%, 50%),
+                hsl(${320 + (i / BAR_COUNT) * 45}, 90%, 60%))`,
+
             }}
           />
         );

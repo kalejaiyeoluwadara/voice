@@ -29,43 +29,66 @@ export default function MicButton({
   }
 
   return (
-    <div className="flex flex-col items-center gap-3">
-      {/* Interim transcript */}
+    <div className="flex flex-col items-center gap-3 w-full">
+      {/* Interim transcript in a Snapchat-style notification banner */}
       {isListening && interimTranscript && (
         <div
-          className="text-sm text-center px-4 py-2 rounded-full max-w-xs animate-fade-in-up"
+          className="text-sm text-center px-5 py-2.5 rounded-full max-w-xs animate-fade-in-up shadow-md font-semibold tracking-wide border"
           style={{
-            background: "rgba(167, 139, 250, 0.08)",
-            border: "1px solid rgba(167, 139, 250, 0.1)",
-            color: "var(--au-text-secondary)",
+            background: "rgba(255, 252, 0, 0.12)",
+            borderColor: "rgba(255, 252, 0, 0.25)",
+            color: "var(--au-amber)",
           }}
         >
           {interimTranscript}
         </div>
       )}
 
-      {/* Mic button */}
-      <div className="relative">
-        <div className={`mic-btn-ring ${isListening ? "active" : ""}`} />
-        <div className={`mic-btn-ring-2 ${isListening ? "active" : ""}`} />
+      {/* Snapchat camera-shutter styled button */}
+      <div className="relative flex items-center justify-center w-24 h-24">
+        {/* Pulsing ring for capture state */}
+        <div
+          className={`absolute inset-0 rounded-full border-[3px] transition-all duration-500 ${
+            isListening
+              ? "border-yellow-400 animate-ping opacity-75 scale-110"
+              : "border-white/20 scale-95"
+          }`}
+        />
+        
+        {/* Outer Shutter Ring */}
+        <div
+          className={`absolute inset-2 rounded-full border-[5px] transition-all duration-300 ${
+            isListening ? "border-yellow-400 scale-105" : "border-white"
+          }`}
+          style={{
+            boxShadow: isListening
+              ? "0 0 20px rgba(255, 252, 0, 0.4)"
+              : "0 0 15px rgba(255, 255, 255, 0.15)",
+          }}
+        />
 
+        {/* Inner Solid Shutter Trigger */}
         <button
           type="button"
-          className={`mic-btn ${isListening ? "listening" : ""}`}
+          className={`absolute w-14 h-14 rounded-full flex items-center justify-center transition-all duration-300 select-none cursor-pointer focus:outline-none ${
+            isListening
+              ? "bg-yellow-400 text-zinc-950 scale-95"
+              : "bg-white text-zinc-900 hover:scale-105 active:scale-90"
+          }`}
           onClick={onPress}
           disabled={isDisabled}
           aria-label={isListening ? "Stop listening" : "Start speaking"}
           id="mic-btn"
         >
           {isListening ? (
-            /* Waveform icon while listening */
+            /* Waveform icon while recording */
             <svg
-              width="28"
-              height="28"
+              width="24"
+              height="24"
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
-              strokeWidth="2"
+              strokeWidth="2.5"
               strokeLinecap="round"
               strokeLinejoin="round"
             >
@@ -76,14 +99,14 @@ export default function MicButton({
               <line x1="20" y1="8" x2="20" y2="16" />
             </svg>
           ) : (
-            /* Microphone icon */
+            /* Standard Mic Icon */
             <svg
-              width="28"
-              height="28"
+              width="24"
+              height="24"
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
-              strokeWidth="2"
+              strokeWidth="2.5"
               strokeLinecap="round"
               strokeLinejoin="round"
             >
@@ -96,12 +119,12 @@ export default function MicButton({
         </button>
       </div>
 
-      {/* Label */}
+      {/* Bottom Hint */}
       <span
-        className="text-xs"
-        style={{ color: "var(--au-text-muted)" }}
+        className="text-[10px] uppercase tracking-widest font-black"
+        style={{ color: isListening ? "var(--au-amber)" : "var(--au-text-muted)" }}
       >
-        {isListening ? "Listening..." : "Tap to speak"}
+        {isListening ? "Listening..." : "Tap to Speak"}
       </span>
     </div>
   );
