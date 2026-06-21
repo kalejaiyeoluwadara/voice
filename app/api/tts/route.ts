@@ -11,7 +11,7 @@ import { detectEmotion, stripForSpeech, voiceSettingsFor } from "../../lib/voice
  */
 export async function POST(request: NextRequest) {
   const elevenLabsKey = process.env.ELEVENLABS_API_KEY;
-  const voiceId = process.env.ELEVENLABS_VOICE_ID;
+  let voiceId = process.env.ELEVENLABS_VOICE_ID;
 
   if (!elevenLabsKey || elevenLabsKey === "your_elevenlabs_key") {
     return NextResponse.json(
@@ -20,14 +20,9 @@ export async function POST(request: NextRequest) {
     );
   }
 
-  if (!voiceId || voiceId === "your_voice_voice_id") {
-    return NextResponse.json(
-      {
-        error:
-          "ELEVENLABS_VOICE_ID is not configured. Go to ElevenLabs > My Voices > Voice > Copy Voice ID, then add to .env.local",
-      },
-      { status: 500 }
-    );
+  if (!voiceId || voiceId === "your_voice_voice_id" || voiceId === "your_audrey_voice_id" || voiceId === "your_voice_id") {
+    // Default to "Sarah" (EXAVITQu4vr4xnSDxMaL) - a warm, soft, and conversational premade ElevenLabs voice
+    voiceId = "EXAVITQu4vr4xnSDxMaL";
   }
 
   let rawText: string;
