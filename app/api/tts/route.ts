@@ -11,7 +11,6 @@ import { detectEmotion, stripForSpeech, voiceSettingsFor } from "../../lib/voice
  */
 export async function POST(request: NextRequest) {
   const elevenLabsKey = process.env.ELEVENLABS_API_KEY;
-  let voiceId = process.env.ELEVENLABS_VOICE_ID;
 
   if (!elevenLabsKey || elevenLabsKey === "your_elevenlabs_key") {
     return NextResponse.json(
@@ -20,10 +19,8 @@ export async function POST(request: NextRequest) {
     );
   }
 
-  if (!voiceId || voiceId === "your_voice_voice_id" || voiceId === "your_audrey_voice_id" || voiceId === "your_voice_id") {
-    // Default to "Sarah" (EXAVITQu4vr4xnSDxMaL) - a warm, soft, and conversational premade ElevenLabs voice
-    voiceId = "EXAVITQu4vr4xnSDxMaL";
-  }
+  // Sarah (EXAVITQu4vr4xnSDxMaL) is a warm, soft, and conversational premade ElevenLabs voice matching the Voice companion persona
+  const voiceId = "EXAVITQu4vr4xnSDxMaL";
 
   let rawText: string;
   try {
